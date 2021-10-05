@@ -15,7 +15,11 @@ export class ContactService {
     private http: HttpClient
   ) { }
 
-  insertClient(contact: Contact) : Observable<Contact> {
+  insertClient(contact: Contact): Observable<Contact> {
     return this.http.post<Contact>(this.url, contact);
+  }
+
+  findAllContacts(): Observable<Contact[]> {
+    return this.http.get<any>(this.url);
   }
 }

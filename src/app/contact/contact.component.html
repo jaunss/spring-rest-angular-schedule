@@ -9,6 +9,32 @@
             <mat-icon>list</mat-icon>
             All
         </ng-template>
+
+        <mat-card>
+            <table mat-table [dataSource]="contacts" class="full-width">
+                <ng-container matColumnDef="nameContact">
+                    <th mat-header-cell *matHeaderCellDef>Name </th>
+                    <td mat-cell *matCellDef="let contact"> {{ contact.nameContact }} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="emailContact">
+                    <th mat-header-cell *matHeaderCellDef>Email </th>
+                    <td mat-cell *matCellDef="let contact"> {{ contact.emailContact }} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="favoriteContact">
+                    <th mat-header-cell *matHeaderCellDef>Favorite </th>
+                    <td mat-cell *matCellDef="let contact">
+                        <mat-icon>{{ contact.favoriteContact ? 'favorite' : 'favorite_border' }}</mat-icon>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnsTable"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsTable;"></tr>
+            </table>
+        </mat-card>
     </mat-tab>
 
     <mat-tab>

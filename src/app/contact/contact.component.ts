@@ -12,6 +12,7 @@ export class ContactComponent implements OnInit {
 
   form!: FormGroup;
   contacts: Contact[] = [];
+  columnsTable = ['nameContact', 'emailContact', 'favoriteContact'];
 
   constructor(
     private contactService: ContactService,
@@ -19,6 +20,11 @@ export class ContactComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.assembleForm();
+    this.findAllContacts();
+  }
+
+  assembleForm() {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
@@ -32,6 +38,12 @@ export class ContactComponent implements OnInit {
       this.contacts.push(response);
       console.log(this.contacts);
     });
+  }
+
+  findAllContacts() {
+    this.contactService.findAllContacts().subscribe(response => {
+      this.contacts = response;
+    })
   }
 
 }
