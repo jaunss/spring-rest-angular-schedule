@@ -28,6 +28,6 @@ export class ContactService {
   }
 
   uploadPhoto(contact: Contact, formData: FormData): Observable<any> {
-    return this.http.put(`${this.url}/${contact.idContact}/photo`, formData);
+    return this.http.put(`${this.url}/${contact.idContact}/photo`, formData, { responseType: 'blob' });
   }
 }
