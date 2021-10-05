@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from '../contact.service';
 import { Contact } from './contact';
+import { MatDialog } from '@angular/material/dialog';
+import { ContactDetailComponent } from '../contact-detail/contact-detail.component';
 
 @Component({
   selector: 'app-contact',
@@ -16,7 +18,8 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private contactService: ContactService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +64,14 @@ export class ContactComponent implements OnInit {
 
       this.contactService.uploadPhoto(contact, formData).subscribe(response => this.findAllContacts());
     }
+  }
+
+  viewContact(contact: Contact) {
+    this.dialog.open(ContactDetailComponent, {
+      width: '400px',
+      height: '400px',
+      data: contact
+    });
   }
 
 }
