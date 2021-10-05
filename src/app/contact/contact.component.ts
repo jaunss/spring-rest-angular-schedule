@@ -43,7 +43,13 @@ export class ContactComponent implements OnInit {
   findAllContacts() {
     this.contactService.findAllContacts().subscribe(response => {
       this.contacts = response;
-    })
+    });
+  }
+
+  favorite(contact: Contact) {
+    this.contactService.favoriteContact(contact).subscribe(response => {
+      contact.favoriteContact = !contact.favoriteContact;
+    });
   }
 
 }

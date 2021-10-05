@@ -27,7 +27,11 @@
                 <ng-container matColumnDef="favoriteContact">
                     <th mat-header-cell *matHeaderCellDef>Favorite </th>
                     <td mat-cell *matCellDef="let contact">
-                        <mat-icon>{{ contact.favoriteContact ? 'favorite' : 'favorite_border' }}</mat-icon>
+                        <a href="#" (click)="favorite(contact)">
+                            <mat-icon>
+                                {{ contact.favoriteContact ? 'favorite' : 'favorite_border' }}
+                            </mat-icon>
+                        </a>
                     </td>
                 </ng-container>
 
