@@ -55,12 +55,28 @@
                     <input formControlName="name" matInput placeholder="Insert the name.">
                 </mat-form-field>
 
+                <div *ngIf="form.controls.name.errors">
+                    <div *ngIf="form.controls.name.errors.required">
+                        Name field is mandatory
+                    </div>
+                </div>
+
                 <mat-form-field class="full-width" appearance="fill">
                     <mat-label>Email: </mat-label>
                     <input formControlName="email" matInput placeholder="Insert the email.">
                 </mat-form-field>
 
-                <button [disabled]="!form.valid" mat-raised-button color="warn">Add</button>
+                <div *ngIf="form.controls.email.errors">
+                    <div *ngIf="form.controls.email.errors.required">
+                        Email field is mandatory
+                    </div>
+
+                    <div *ngIf="form.controls.email.errors.email">
+                        Email invalid
+                    </div>
+                </div>
+
+                <button [disabled]="!form.valid" mat-raised-button color="primary">Add</button>
             </form>
         </mat-card>
     </mat-tab>

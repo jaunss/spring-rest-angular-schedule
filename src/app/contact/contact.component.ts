@@ -35,8 +35,8 @@ export class ContactComponent implements OnInit {
     const formValues = this.form.value;
     const contact: Contact = new Contact(formValues.name, formValues.email);
     this.contactService.insertClient(contact).subscribe(response => {
-      this.contacts.push(response);
-      console.log(this.contacts);
+      let listContact: Contact[] = [...this.contacts, response];
+      this.contacts = listContact;
     });
   }
 
