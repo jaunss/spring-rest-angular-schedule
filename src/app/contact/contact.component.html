@@ -1,8 +1,22 @@
-<mat-toolbar>Contacts</mat-toolbar>
+<mat-toolbar>
+    <mat-icon>account_circle</mat-icon>
+    Contacts
+</mat-toolbar>
 
 <mat-tab-group>
-    <mat-tab label="All"></mat-tab>
-    <mat-tab label="New">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>list</mat-icon>
+            All
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>face</mat-icon>
+            New
+        </ng-template>
+
         <mat-card>
             <mat-card-title>New Contact</mat-card-title>
             <form [formGroup]="form" (ngSubmit)="submit()">
