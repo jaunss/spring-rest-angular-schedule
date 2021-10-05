@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from '../contact.service';
 import { Contact } from './contact';
 
@@ -9,18 +10,27 @@ import { Contact } from './contact';
 })
 export class ContactComponent implements OnInit {
 
+  form!: FormGroup;
+  contacts: Contact[] = [];
+
   constructor(
-    private contactService: ContactService
+    private contactService: ContactService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    const contact: Contact = new Contact();
-    contact.nameContact = 'Joaozim';
-    contact.emailContact = 'joaozim@joaozim.com';
-    contact.favoriteContact = false;
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
 
+  submit() {
+    const formValues = this.form.value;
+    const contact: Contact = new Contact(formValues.name, formValues.email);
     this.contactService.insertClient(contact).subscribe(response => {
-      console.log(response);
+      this.contacts.push(response);
+      console.log(this.contacts);
     });
   }
 

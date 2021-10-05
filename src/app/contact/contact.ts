@@ -4,4 +4,9 @@ export class Contact {
     nameContact!: string;
     emailContact!: string;
     favoriteContact!: boolean;
+
+    constructor(nameContact: string, emailContact: string) {
+        this.nameContact = nameContact;
+        this.emailContact = emailContact;
+    }
 }
