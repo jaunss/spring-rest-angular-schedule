@@ -72,7 +72,7 @@
                     <input formControlName="name" matInput placeholder="Insert the name.">
                 </mat-form-field>
 
-                <div *ngIf="form.controls.name.errors">
+                <div *ngIf="form.controls.name.errors && !form.controls.name.pristine">
                     <div *ngIf="form.controls.name.errors.required">
                         Name field is mandatory
                     </div>
@@ -83,7 +83,7 @@
                     <input formControlName="email" matInput placeholder="Insert the email.">
                 </mat-form-field>
 
-                <div *ngIf="form.controls.email.errors">
+                <div *ngIf="form.controls.email.errors && !form.controls.email.pristine">
                     <div *ngIf="form.controls.email.errors.required">
                         Email field is mandatory
                     </div>
