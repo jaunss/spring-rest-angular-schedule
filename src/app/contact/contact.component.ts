@@ -4,6 +4,7 @@ import { ContactService } from '../contact.service';
 import { Contact } from './contact';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactDetailComponent } from '../contact-detail/contact-detail.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-contact',
@@ -15,6 +16,10 @@ export class ContactComponent implements OnInit {
   form!: FormGroup;
   contacts: Contact[] = [];
   columnsTable = ['photoContact', 'nameContact', 'emailContact', 'favoriteContact'];
+  totalElements = 0;
+  page = 0;
+  size = 1;
+  pageSizeOptions: number[] = [1];
 
   constructor(
     private contactService: ContactService,
@@ -24,7 +29,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.assembleForm();
-    this.findAllContacts();
+    this.findAllPageContacts(this.page, this.size);
   }
 
   assembleForm() {
@@ -43,9 +48,11 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  findAllContacts() {
-    this.contactService.findAllContacts().subscribe(response => {
-      this.contacts = response;
+  findAllPageContacts(page = 0, pageSize = 10) {
+    this.contactService.findAllContacts(page, pageSize).subscribe(response => {
+      this.contacts = response.content;
+      this.totalElements = response.totalElements;
+      this.page = response.number;
     });
   }
 
@@ -62,7 +69,7 @@ export class ContactComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.append("photoContact", photo);
 
-      this.contactService.uploadPhoto(contact, formData).subscribe(response => this.findAllContacts());
+      this.contactService.uploadPhoto(contact, formData).subscribe(response => this.findAllPageContacts());
     }
   }
 
@@ -72,6 +79,11 @@ export class ContactComponent implements OnInit {
       height: '400px',
       data: contact
     });
+  }
+
+  pagination(event: PageEvent) {
+    this.page = event.pageIndex;
+    this.findAllPageContacts(this.page, this.size);
   }
 
 }

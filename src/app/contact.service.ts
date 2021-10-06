@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Contact } from './contact/contact';
+import { PageContact } from './contact/pageContact';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class ContactService {
     return this.http.post<Contact>(this.url, contact);
   }
 
-  findAllContacts(): Observable<Contact[]> {
-    return this.http.get<any>(this.url);
+  findAllContacts(page: number, pageSize: number): Observable<PageContact> {
+    const params = new HttpParams().set('page', page).set('pageSize', pageSize);
+    return this.http.get<any>(`${this.url}?${params.toString()}`);
   }
 
   favoriteContact(contact: Contact): Observable<any> {
